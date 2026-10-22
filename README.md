@@ -1,37 +1,24 @@
-# Switched dynamical systems — one-dimensional rational case
+# Nonsmooth dynamical systems — one-dimensional rational case
 
 Julia code for studying one-dimensional switched (piecewise-constant) dynamical
 systems with rational parameters, from my PhD research in applied dynamical
 systems at the University of Bristol.
 
-The underlying question is whether an idealised switching model remains a
-reliable guide to a real system that cannot switch instantaneously.
-
-## The idea
-
-For a vector field with rational entries, choosing a lattice with spacing
-`1 // lcm(denominators)` means one integration step maps a whole grid cell
-exactly onto another grid cell. The continuous dynamics then collapse onto a
-finite directed graph on cell indices, where every node has out-degree one.
-
-That graph decomposes into cycles with trees of transients feeding into them:
-the cycles are the periodic orbits — found exactly rather than approximated by
-simulation — and the transients hanging off each cycle are its basin of
-attraction.
-
-Exactness is the point, which is why the code works in exact rational arithmetic
-throughout rather than floating point, and uses interval arithmetic where
-rigorous bounds are needed.
 
 ## What's here
 
-- `utilities.jl`, `new_utilities.jl` — the core: rational lattice construction,
-  branch maps, graph construction and analysis, Markov chain analysis of the
-  resulting mode dynamics.
+- `utilities.jl`, `new_utilities.jl` — the core: rational number generation,
+  branch maps and their topology, discontinuity points, interval-arithmetic
+  bounds, period detection, and Markov chain analysis of the mode dynamics.
 - `basic.jl` — generates rational vector fields and finds their branch maps.
 - `single_example.jl` — a worked single case with its transition matrix.
 - `sampling_plots.jl` — figures over sampled parameter ranges.
 - `nonconstant_vec_fields.jl` — extension to non-constant fields.
+
+Note: `utilities.jl` and `new_utilities.jl` are successive versions of the core
+routines, with some overlap. `new_utilities.jl` is the later rewrite, adding
+interval-arithmetic bounds and period detection. Both are kept because different
+scripts depend on each.
 
 ## Running it
 
